@@ -1,13 +1,13 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
-import { startServer } from '../server';
+import { startServer } from './server';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = () => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -21,9 +21,9 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    await mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
-    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    await mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
   // Open the DevTools.
@@ -35,8 +35,8 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow();
+  // Start the express server
   startServer();
-  console.log('>>>>>', MAIN_WINDOW_VITE_DEV_SERVER_URL);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

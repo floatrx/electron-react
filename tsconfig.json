@@ -13,6 +13,6 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx"
   },
-  "include": ["./**/*.ts", "./**/*.tsx", "forge.env.d.ts"],
+  "include": ["./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
-import { VITE_API_URL } from '../const';
+import { useEffect, useState } from 'react';
 
 export const App = () => {
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
-    fetch('http://localhost:3000/api')
+    fetch('/api/test')
       .then((res) => res?.text())
-      .then(console.log);
+      .then(setMessage);
 
     const replaceText = (selector: string, text: string) => {
       const element = document.getElementById(selector);
@@ -23,6 +24,9 @@ export const App = () => {
       <p>Welcome to your Electron application.</p>
       We are using Node.js <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, and Electron{' '}
       <span id="electron-version"></span>.
+      <p>
+        <strong>API Response:</strong> {message}
+      </p>
     </div>
   );
 };

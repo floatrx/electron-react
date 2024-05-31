@@ -15,6 +15,15 @@ export default defineConfig((env) => {
     build: {
       outDir: `.vite/renderer/${name}`,
     },
+    server: {
+      // Proxy /api requests to the express server
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5750',
+          changeOrigin: true,
+        },
+      },
+    },
     plugins: [pluginExposeRenderer(name)],
     resolve: {
       preserveSymlinks: true,
