@@ -3,6 +3,10 @@ import { VITE_API_URL } from '../const';
 
 export const App = () => {
   useEffect(() => {
+    fetch('http://localhost:3000/api')
+      .then((res) => res?.text())
+      .then(console.log);
+
     const replaceText = (selector: string, text: string) => {
       const element = document.getElementById(selector);
       if (element) element.innerText = text;
@@ -11,8 +15,6 @@ export const App = () => {
     for (const dependency of ['chrome', 'node', 'electron']) {
       replaceText(`${dependency}-version`, window?.process?.versions[dependency]);
     }
-
-    console.log('App mounted', VITE_API_URL);
   }, []);
 
   return (
